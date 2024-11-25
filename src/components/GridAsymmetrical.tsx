@@ -1,4 +1,4 @@
-import { Button, Container, Grid } from "@mantine/core";
+import { Button, Container, Grid, Switch } from "@mantine/core";
 import WidgetContainer from "./WidgetWrapper";
 import { useState } from "react";
 
@@ -30,6 +30,7 @@ const data = [
 
 export const GridAsymmetrical = () => {
   const [widgetData, setWidgetData] = useState(data);
+  const [checked, setChecked] = useState(false);
   const handleAddWidget = () => {
     const newWidget = {
       id: widgetData.length + 1,
@@ -40,7 +41,14 @@ export const GridAsymmetrical = () => {
   };
   return (
     <Container my="xl" size="xl">
-      <Grid>
+      <Switch
+        checked={checked}
+        label="Toggle grid grow"
+        size="xl"
+        onChange={(event) => setChecked(event.currentTarget.checked)}
+        style={{ marginBottom: 20 }}
+      />
+      <Grid grow={checked}>
         {widgetData.map((widget) => (
           <Grid.Col key={widget.id} {...widget}>
             <WidgetContainer
