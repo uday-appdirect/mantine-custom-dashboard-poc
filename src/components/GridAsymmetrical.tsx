@@ -2,6 +2,7 @@ import { Button, Container, Grid, Switch } from "@mantine/core";
 import WidgetContainer from "./WidgetWrapper";
 import { useState } from "react";
 
+// @ts-expect-error - Mantine does not have types for floating action button
 const FloatingActionButton = ({ handleAddWidget }) => {
   return (
     <Button
@@ -50,6 +51,7 @@ export const GridAsymmetrical = () => {
       />
       <Grid grow={checked}>
         {widgetData.map((widget) => (
+          // @ts-expect-error - Grid.Col props are not typed
           <Grid.Col key={widget.id} {...widget}>
             <WidgetContainer
               widgetTitle={widget.title}
