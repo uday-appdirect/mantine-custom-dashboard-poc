@@ -58,6 +58,7 @@ export const GridAsymmetrical = () => {
               id={widget.id}
               setWidgetData={setWidgetData}
               widgetData={widgetData}
+              inlineStyles={{}}
             >
               <div
                 style={{

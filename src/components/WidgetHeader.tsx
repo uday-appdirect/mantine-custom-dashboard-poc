@@ -48,13 +48,29 @@ const ActionIconText = styled.span`
   padding-left: 10px;
 `;
 
+// Define a Widget interface to replace 'any'
+interface Widget {
+  id: number;
+  span: number;
+  // Add other widget properties as needed
+}
+
 interface WidgetHeaderProps {
   widgetTitle?: string;
   toggle: () => void;
   fullscreen: boolean;
   id: number;
-  widgetData: any;
-  setWidgetData: React.Dispatch<React.SetStateAction<any>>;
+  widgetData: Widget[];
+  setWidgetData: React.Dispatch<React.SetStateAction<Widget[]>>;
+  // Add drag-and-drop props
+  onMouseDown?: React.MouseEventHandler;
+  onTouchStart?: React.TouchEventHandler;
+  "aria-describedby"?: string;
+  "aria-roledescription"?: string;
+  "aria-pressed"?: boolean;
+  "aria-disabled"?: boolean;
+  role?: string;
+  tabIndex?: number;
 }
 
 const WidgetHeader: React.FC<WidgetHeaderProps> = (props) => {
@@ -73,7 +89,7 @@ const WidgetHeader: React.FC<WidgetHeaderProps> = (props) => {
   };
 
   const handleSizeChange = (size: number) => {
-    const updatedData = widgetData.map((widget: any) => {
+    const updatedData = widgetData.map((widget: Widget) => {
       if (widget.id === id) {
         return { ...widget, span: size };
       }
@@ -83,7 +99,7 @@ const WidgetHeader: React.FC<WidgetHeaderProps> = (props) => {
   };
 
   const moveWidgetDown = () => {
-    const widgetIndex = widgetData.findIndex((widget: any) => widget.id === id);
+    const widgetIndex = widgetData.findIndex((widget: Widget) => widget.id === id);
     if (widgetIndex === widgetData.length - 1) return;
     const updatedData = [...widgetData];
     const temp = updatedData[widgetIndex];
@@ -93,7 +109,7 @@ const WidgetHeader: React.FC<WidgetHeaderProps> = (props) => {
   };
 
   const moveWidgetUp = () => {
-    const widgetIndex = widgetData.findIndex((widget: any) => widget.id === id);
+    const widgetIndex = widgetData.findIndex((widget: Widget) => widget.id === id);
     if (widgetIndex === 0) return;
     const updatedData = [...widgetData];
     const temp = updatedData[widgetIndex];
@@ -203,7 +219,7 @@ const WidgetHeader: React.FC<WidgetHeaderProps> = (props) => {
         </StyledActionLayout>
         <StyledActionLayout>
           <RiDraggable
-            // main props
+            // main props 
             onMouseDown={props.onMouseDown}
             onTouchStart={props.onTouchStart}
             // accessibility props

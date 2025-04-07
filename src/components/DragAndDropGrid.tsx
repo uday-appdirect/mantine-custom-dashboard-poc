@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import {
   closestCenter,
   DndContext,
@@ -103,7 +103,13 @@ const DragAndDropGrid = () => {
         </SortableContext>
         <DragOverlay style={{ transformOrigin: "0 0 " }}>
           {activeWidget ? (
-            <Item widget={activeWidget} id={activeWidget?.id} isDragging />
+            <Item
+              widget={activeWidget}
+              id={activeWidget?.id}
+              isDragging
+              widgetData={widgetData}
+              setWidgetData={setWidgetData}
+            />
           ) : null}
         </DragOverlay>
       </DndContext>
