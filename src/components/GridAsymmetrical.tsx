@@ -62,7 +62,7 @@ export const GridAsymmetrical = () => {
               <div
                 style={{
                   height: 300,
-                  background: "var(--mantine-color-cyan-3)",
+                  background: "#E9ECEF",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",

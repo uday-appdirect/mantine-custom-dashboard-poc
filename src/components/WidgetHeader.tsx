@@ -6,6 +6,7 @@ import {
   RiFullscreenExitLine,
   RiArrowUpLine,
   RiArrowDownLine,
+  RiDraggable,
 } from "@remixicon/react";
 import { Menu, ActionIcon, Group } from "@mantine/core";
 
@@ -56,14 +57,15 @@ interface WidgetHeaderProps {
   setWidgetData: React.Dispatch<React.SetStateAction<any>>;
 }
 
-const WidgetHeader: React.FC<WidgetHeaderProps> = ({
-  widgetTitle,
-  toggle,
-  fullscreen,
-  id,
-  widgetData,
-  setWidgetData,
-}) => {
+const WidgetHeader: React.FC<WidgetHeaderProps> = (props) => {
+  const {
+    widgetTitle = "Widget Title",
+    toggle,
+    fullscreen,
+    id,
+    widgetData,
+    setWidgetData,
+  } = props;
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" || event.key === " ") {
       toggle();
@@ -88,7 +90,7 @@ const WidgetHeader: React.FC<WidgetHeaderProps> = ({
     updatedData[widgetIndex] = updatedData[widgetIndex + 1];
     updatedData[widgetIndex + 1] = temp;
     setWidgetData(updatedData);
-  }
+  };
 
   const moveWidgetUp = () => {
     const widgetIndex = widgetData.findIndex((widget: any) => widget.id === id);
@@ -98,7 +100,7 @@ const WidgetHeader: React.FC<WidgetHeaderProps> = ({
     updatedData[widgetIndex] = updatedData[widgetIndex - 1];
     updatedData[widgetIndex - 1] = temp;
     setWidgetData(updatedData);
-  }
+  };
 
   return (
     <>
@@ -195,6 +197,26 @@ const WidgetHeader: React.FC<WidgetHeaderProps> = ({
               width: "14px",
               height: "14px",
               cursor: "pointer",
+              margin: "0 auto",
+            }}
+          />
+        </StyledActionLayout>
+        <StyledActionLayout>
+          <RiDraggable
+            // main props
+            onMouseDown={props.onMouseDown}
+            onTouchStart={props.onTouchStart}
+            // accessibility props
+            aria-describedby={props["aria-describedby"]}
+            aria-roledescription={props["aria-roledescription"]}
+            aria-pressed={props["aria-pressed"]}
+            aria-disabled={props["aria-disabled"]}
+            role={props.role}
+            tabIndex={props.tabIndex}
+            style={{
+              width: "14px",
+              height: "14px",
+              cursor: "grab",
               margin: "0 auto",
             }}
           />

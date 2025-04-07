@@ -15,28 +15,37 @@ interface WidgetContainerProps {
   id: number;
   setWidgetData: React.Dispatch<React.SetStateAction<any>>;
   widgetData: any;
+  dragNDropRef?: any;
+  inlineStyles: object;
+  isDragging?: boolean;
 }
 
-const WidgetContainer: React.FC<WidgetContainerProps> = ({
-  children,
-  widgetTitle,
-  id,
-  setWidgetData,
-  widgetData,
-}) => {
+const WidgetContainer: React.FC<WidgetContainerProps> = (props) => {
+  const {
+    children,
+    widgetTitle,
+    id,
+    setWidgetData,
+    widgetData,
+    dragNDropRef,
+    inlineStyles,
+  } = props;
   const { ref, toggle, fullscreen } = useFullscreen();
   return (
-    <StyledWidgetContainer ref={ref}>
-      <WidgetHeader
-        widgetTitle={widgetTitle}
-        toggle={toggle}
-        fullscreen={fullscreen}
-        id={id}
-        widgetData={widgetData}
-        setWidgetData={setWidgetData}
-      />
-      {children}
-    </StyledWidgetContainer>
+    <div ref={dragNDropRef}>
+      <StyledWidgetContainer ref={ref} style={inlineStyles}>
+        <WidgetHeader
+          {...props}
+          widgetTitle={widgetTitle || "Widget title"}
+          toggle={toggle}
+          fullscreen={fullscreen}
+          id={id}
+          widgetData={widgetData}
+          setWidgetData={setWidgetData}
+        />
+        {children}
+      </StyledWidgetContainer>
+    </div>
   );
 };
 
